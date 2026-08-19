@@ -1,4 +1,4 @@
-# Halo: Campaign Evolved Progress Tracker
+# Halo: Campaign Evolved Mission Progress Tracker
 
 Check your campaign completion using your local `Progress.sav` file.
 

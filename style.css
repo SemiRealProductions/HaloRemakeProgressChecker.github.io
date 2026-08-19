@@ -65,6 +65,10 @@ h1 {
     white-space: nowrap;
 }
 
+.title-line-secondary {
+    font-size: 0.78em;
+}
+
 h2 {
     margin-bottom: 0;
     font-size: 1.25rem;
