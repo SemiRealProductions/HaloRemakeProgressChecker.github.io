@@ -78,6 +78,21 @@ h2 {
     line-height: 1.65;
 }
 
+.platform-notice {
+    display: inline-block;
+    margin: 18px auto 0;
+    padding: 7px 12px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--muted);
+    background: rgba(16, 28, 25, 0.72);
+    font-size: 0.82rem;
+}
+
+.platform-notice strong {
+    color: var(--accent);
+}
+
 .save-locations,
 .file-panel,
 .results {
