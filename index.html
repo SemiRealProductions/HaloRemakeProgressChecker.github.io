@@ -3,34 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halo Campaign Evolved Progress Checker</title>
+    <meta name="description" content="Check Halo: Campaign Evolved campaign progress from a local Progress.sav file.">
+    <title>Halo: Campaign Evolved Progress Tracker</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Halo Campaign Evolved Progress Checker</h1>
+    <main class="app-shell">
+        <header class="hero">
+            <h1>
+                <span class="title-line">Halo: Campaign Evolved</span>
+                <span class="title-line">Progress Tracker</span>
+            </h1>
+            <p class="intro">
+                Select your <strong>Progress.sav</strong> file to see which missions
+                you have completed. Your save stays on this device and is never uploaded.
+            </p>
+        </header>
 
-    <p>Select your Progress.sav file:</p>
+        <section class="save-locations" aria-labelledby="save-locations-heading">
+            <div class="section-heading">
+                <p class="eyebrow">File location</p>
+                <h2 id="save-locations-heading">Find Progress.sav</h2>
+            </div>
 
-    <input type="file" id="saveFile" accept=".sav">
+            <div class="path-list">
+                <div class="path-row">
+                    <div class="path-label">
+                        <strong>Windows</strong>
+                        <span>Paste into File Explorer</span>
+                    </div>
+                    <code>%LOCALAPPDATA%\Meteorite\Saved\SaveGames</code>
+                    <button class="copy-button" type="button" data-copy-value="%LOCALAPPDATA%\Meteorite\Saved\SaveGames">
+                        Copy
+                    </button>
+                </div>
 
-    <pre id="output">No file selected.</pre>
+                <div class="path-row">
+                    <div class="path-label">
+                        <strong>Steam Play (Linux)</strong>
+                        <span>Typical default Steam library</span>
+                    </div>
+                    <code>~/.local/share/Steam/steamapps/compatdata/2806050/pfx/drive_c/users/steamuser/AppData/Local/Meteorite/Saved/SaveGames</code>
+                    <button class="copy-button" type="button" data-copy-value="~/.local/share/Steam/steamapps/compatdata/2806050/pfx/drive_c/users/steamuser/AppData/Local/Meteorite/Saved/SaveGames">
+                        Copy
+                    </button>
+                </div>
+            </div>
 
-    <script>
-        const input = document.getElementById("saveFile");
-        const output = document.getElementById("output");
+            <p class="path-note">
+                On Linux, press <kbd>Ctrl</kbd> + <kbd>L</kbd> in your file picker before pasting.
+                For a custom Steam library, start with
+                <code>&lt;SteamLibrary-folder&gt;/steamapps/compatdata/2806050/pfx/drive_c/users/steamuser/AppData/Local/Meteorite/Saved/SaveGames</code>.
+            </p>
+        </section>
 
-        input.addEventListener("change", () => {
-            const file = input.files[0];
+        <section class="file-panel" aria-labelledby="save-file-heading">
+            <div class="file-panel-heading">
+                <h2 id="save-file-heading">Choose your save</h2>
+                <p class="hint">The file is processed entirely in your browser.</p>
+            </div>
 
-            if (!file) {
-                output.textContent = "No file selected.";
-                return;
-            }
+            <div id="dropZone" class="drop-zone">
+                <div class="drop-icon" aria-hidden="true">↓</div>
+                <div>
+                    <strong>Drag and drop Progress.sav here</strong>
+                    <p>or choose it from your device</p>
+                </div>
+                <label class="file-picker" for="saveFile">
+                    <span>Select Progress.sav</span>
+                    <input type="file" id="saveFile" accept=".sav,application/octet-stream">
+                </label>
+            </div>
 
-            output.textContent =
-                `File loaded:\n` +
-                `Name: ${file.name}\n` +
-                `Size: ${file.size} bytes`;
-        });
-    </script>
+            <button id="clearSave" class="clear-button" type="button" disabled>
+                Clear save
+            </button>
+        </section>
+
+        <p id="status" class="status" role="status" aria-live="polite">
+            No file selected.
+        </p>
+
+        <section class="results" aria-labelledby="results-heading">
+            <div class="results-heading">
+                <div>
+                    <p class="eyebrow">Mission status</p>
+                    <h2 id="results-heading">Campaign completion</h2>
+                </div>
+                <p id="summary" class="summary">0 of 91 completions found</p>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Mission</th>
+                            <th scope="col">Easy</th>
+                            <th scope="col">Normal</th>
+                            <th scope="col">Heroic</th>
+                            <th scope="col">Legendary</th>
+                            <th scope="col">LASO</th>
+                            <th scope="col">Remix</th>
+                            <th scope="col">Deathless Remix</th>
+                        </tr>
+                    </thead>
+                    <tbody id="missionRows"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
 </body>
 </html>
