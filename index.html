@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halo Campaign Evolved Progress Checker</title>
+</head>
+<body>
+    <h1>Halo Campaign Evolved Progress Checker</h1>
+
+    <p>Select your Progress.sav file:</p>
+
+    <input type="file" id="saveFile" accept=".sav">
+
+    <pre id="output">No file selected.</pre>
+
+    <script>
+        const input = document.getElementById("saveFile");
+        const output = document.getElementById("output");
+
+        input.addEventListener("change", () => {
+            const file = input.files[0];
+
+            if (!file) {
+                output.textContent = "No file selected.";
+                return;
+            }
+
+            output.textContent =
+                `File loaded:\n` +
+                `Name: ${file.name}\n` +
+                `Size: ${file.size} bytes`;
+        });
+    </script>
+</body>
+</html>
